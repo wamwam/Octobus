@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 class Arena:
     """
@@ -24,7 +25,7 @@ class Arena:
         G = self.game
         total_score = np.zeros(G.N)
         
-        for i in range(num):
+        for i in tqdm(range(num)):
             score = self.playGame(verbose=verbose)
             total_score += score
 

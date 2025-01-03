@@ -4,13 +4,12 @@ from Player import Player
 
 
 def main():
-    N = 100
+    N = 5
     K = 3
-    nr_games = 10
+    nr_games = 1000
     game = Octobus(N, K)
-    # Some simple players and some fully random players
-    players = [Player('simple') for i in range(int(N/2))] + [Player('random') for i in range(int(N/2))]
-
+    players = [Player('switch') for i in range(int(1))] + [Player('simple') for i in range(int(N-1))]
+    #players = [Player('defect') for i in range(N)]
 
     arena = Arena(game, players)
     final_score = arena.playGames(nr_games, verbose=False)

@@ -7,7 +7,7 @@ class Octobus:
 
     The game state can be defined by:
     Cards on the table belonging to players
-    Centre card
+    Center card
     The current player
     The move number
     The chosen target
@@ -19,7 +19,7 @@ class Octobus:
     """
     def __init__(self, N, K=3):
         # N = number of players
-        # K = number of cards per player
+        # K = initial number of cards per player
         self.N = N
         self.K = K
         self.ranks = ['-', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
@@ -27,11 +27,12 @@ class Octobus:
     def reset(self):
         """ Reset the game state to the initial state """
         self.target = 0
-        self.current_player = 0
+        self.current_player = random.randint(0, self.N-1)
         self.move_number = 0
         self.target = 0
         self.p = np.ones(self.N)
         self.score = np.zeros(self.N)
+        self.round = 0
 
         self.cards_left = self.K * np.ones(self.N, dtype=np.uint8) 
         self.cards = np.zeros([self.N, self.K], dtype=np.int8)
@@ -101,6 +102,8 @@ class Octobus:
         next_player = self.current_player
         while True:
             next_player = (next_player + 1) % self.N
+            if next_player == 0:
+                    self.round += 1
             if self.cards_left[next_player] > 0:
                 self.move_number = self.K - self.cards_left[next_player]
                 self.current_player = next_player
@@ -129,17 +132,18 @@ class Octobus:
         return np.prod(p)
     
     def display_state(self, move):
-        print("Current player: ", self.current_player)
-        print("Move number: ", self.move_number)
-        print("Target: ", self.target)
-        print("Current card: ", self.ranks[self.current_card])
-        print("Move: ", move )
+        print("Round: ", self.round)
+        #print("Current player: ", self.current_player)
+        #print("Move number: ", self.move_number)
+        #print("Target: ", self.target)
+        #print("Current card: ", self.ranks[self.current_card])
+        #print("Move: ", move )
         print("Cards left: ", self.cards_left)
-        print("Probability: ", self.p)
-        print("Score: ", self.score)
-        print("Center card: ", self.ranks[self.center_card])
-        self.display_cards()
-        print("\n")
+        #print("Probability: ", self.p)
+        #print("Score: ", self.score)
+        #print("Center card: ", self.ranks[self.center_card])
+        #self.display_cards()
+        #print("\n")
 
     def display_cards(self):
         for i in range(self.N):
