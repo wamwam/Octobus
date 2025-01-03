@@ -23,6 +23,7 @@ class Player:
         return move, target
 
     def algorithm_random(self, game_state):
+        "Ramdom player, i.e. random move and random target"
         move = random.choice(['higher', 'lower'])
         indices = np.where((game_state.cards_left > 0) & (np.arange(len(game_state.cards_left)) != game_state.current_player))[0]
 
@@ -33,6 +34,7 @@ class Player:
         return move, target
     
     def algorithm_simple(self, game_state):
+        "Simple player: chooses higher/lower based on value and chooses target with the highest total probability of succes "
         if game_state.current_card < 7:
             move = 'higher'
         else:

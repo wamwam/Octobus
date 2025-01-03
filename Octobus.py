@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Octobus:
-    """ The full state of the game of Ocotobus
+    """ The full game of Ocotobus
 
     The game state can be defined by:
     Cards on the table belonging to players
@@ -25,6 +25,7 @@ class Octobus:
         self.ranks = ['-', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
     def reset(self):
+        """ Reset the game state to the initial state """
         self.target = 0
         self.current_player = 0
         self.move_number = 0
@@ -44,7 +45,7 @@ class Octobus:
 
 
     def DoMove(self, move, target):
-
+        " Perform a move and update the game state"
         new_card = self.draw_random_card()
         correct = self.higherorlower(self.current_card, new_card, move)
 
@@ -74,6 +75,7 @@ class Octobus:
 
 
     def read_next_card(self):
+        "Get value of next card to play"
         if self.move_number < self.K:
             self.current_card = self.cards[self.current_player, self.move_number]
         elif self.move_number == self.K:
@@ -82,6 +84,7 @@ class Octobus:
             self.current_card = self.cards[self.target, self.move_number - self.K - 1]
 
     def remove_card(self):
+        "Remove a card from the game for a player"
         self.cards_left[self.current_player] -= 1
         self.cards[self.current_player, self.K - self.cards_left[self.current_player] - 1] = 0
         self.p[self.current_player] = self.calculate_p(self.cards[self.current_player,:])
@@ -94,6 +97,7 @@ class Octobus:
         self.score[self.target] += 1
 
     def next_player(self):
+        "Set the next player and his starting move number"
         next_player = self.current_player
         while True:
             next_player = (next_player + 1) % self.N

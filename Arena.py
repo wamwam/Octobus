@@ -2,7 +2,7 @@ import numpy as np
 
 class Arena:
     """
-    An Arena class where any number of agents can be pit against each other.
+    A general class where any number of agents can be pit against each other.
     """
     def __init__(self, game, players, display=None):
         self.players = players

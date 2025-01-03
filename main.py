@@ -4,9 +4,9 @@ from Player import Player
 
 
 def main():
-    N = 2
+    N = 100
     K = 3
-    nr_games = 100
+    nr_games = 10
     game = Octobus(N, K)
     # Some simple players and some fully random players
     players = [Player('simple') for i in range(int(N/2))] + [Player('random') for i in range(int(N/2))]
